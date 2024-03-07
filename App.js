@@ -2,12 +2,12 @@ import * as React from 'react';
 import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import HomeScreen from '../ConfigRotas/screens/HomeScreen';
-import LoginScreen from '../ConfigRotas/screens/LoginScreen';
-import CadastroScreen from '../ConfigRotas/screens/CadastroScreen';
-import ContatoScreen from '../ConfigRotas/screens/ContatoScreen';
-import lista from '../ConfigRotas/screens/lista';
-import AlterarExcluirScreen from './screens/AlterarExcluirScreen';
+import HomeScreen from '../Criacao-Rotas-Novas/screens/HomeScreen';
+import LoginScreen from '../Criacao-Rotas-Novas/screens/LoginScreen';
+import CadastroScreen from '../Criacao-Rotas-Novas/screens/CadastroScreen';
+import ContatoScreen from '../Criacao-Rotas-Novas/screens/ContatoScreen';
+import lista from '../Criacao-Rotas-Novas/screens/lista';
+import AlterarExcluirScreen from '../Criacao-Rotas-Novas/screens/AlterarExcluirScreen';
 
 
 const Stack = createNativeStackNavigator();
