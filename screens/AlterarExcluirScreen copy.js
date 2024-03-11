@@ -1,7 +1,7 @@
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { Input, Button, Text } from 'react-native-elements';
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import axios from 'axios';
 
 
@@ -11,6 +11,10 @@ export default function CadastroContato(route) {
     const [getEmail, setEmail] = useState();
     const [getTelefone, setTelefone] = useState();
     const [getId, setId] = useState();
+
+    const rotas = useRoute();
+
+    const { data } = rotas.params
 
     useEffect(() => {
         if (route.params) {
@@ -51,7 +55,7 @@ export default function CadastroContato(route) {
 
     return (
         <View style={styles.container}>
-            <Text style={{ color: "red", textAlign: 'center', fontWeight: 'bold', fontSize: 30, }}>Cadastro de Contato</Text>
+            <Text style={{ color: "red", textAlign: 'center', fontWeight: 'bold', fontSize: 30, }}>Contato</Text>
 
             <View style={{ marginTop: 50 }}>
 
@@ -87,9 +91,15 @@ export default function CadastroContato(route) {
 
             </View>
             <View>
-                <TouchableOpacity style={styles.salvarButton} onPress={() => inserirDados() }>
-                    <Text style={styles.buttonText}>Salvar</Text>
+                <TouchableOpacity style={styles.alterarButton} onPress={() => inserirDados()}>
+                    <Text style={styles.buttonText}>Alterar</Text>
                 </TouchableOpacity>
+
+
+                <TouchableOpacity style={styles.excluirButton} onPress={() => inserirDados()}>
+                    <Text style={styles.buttonText}>Excluir</Text>
+                </TouchableOpacity>
+
             </View>
         </View>
     );
@@ -109,8 +119,20 @@ const styles = StyleSheet.create({
         fontSize: 20
     },
 
-    salvarButton: {
+    alterarButton: {
         backgroundColor: 'blue',
+        padding: 5,
+        marginTop: 80,
+        height: 50,
+        margin: 'auto',
+        width: "100%",
+        justifyContent: 'center',
+        alignItems: 'center',
+        color: 'white',
+    },
+
+    excluirButton: {
+        backgroundColor: 'red',
         padding: 5,
         marginTop: 80,
         height: 50,

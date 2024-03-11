@@ -1,73 +1,80 @@
 import React from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
-import { Button, Header } from 'react-native-elements';
+import { useState, useEffect } from 'react';
+import { StyleSheet, ScrollView, Text, View } from 'react-native';
+import { Button, ListItem, Avatar } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
 
-function lista() {
+export default function ListaContato() {
 
+    const edicao = (data) => {
+        navigation.navigate("AlterarExcluir", { data })
+        console.log(data)
+    };
+
+    const [data, setData] = useState([]);
     const navigation = useNavigation();
 
-    return (
+    useEffect(() => {
 
+        function resgatar() {
+
+            axios.get('http://localhost:3000/user')
+                .then(response => {
+                    setData(response.data);
+                })
+                .catch(error => {
+                    console.error('Erro ao obter dados:', error);
+                });
+        }
+        resgatar();
+    }, []);
+
+    return (
         <View style={styles.container}>
 
-            <Text style={{ color: "red", textAlign: 'center', fontWeight: 'bold', fontSize: 30, }}>Lista de Contatos</Text>
-            <br></br>
-            <Button title="Adicionar" onPress={() => navigation.navigate('Cadastro de Contato')}
-                titleStyle={{ fontSize: 15, fontWeight: 'bold' }}
-                buttonStyle={{ backgroundColor: 'red', justifyContent: 'center' }} />
-            <FlatList
-                data={[
-                    {
-                        nome: "Marcos Andrade",
-                        email: "marcosAndre@gmail.com",
-                        numero: 81988553424
-                    },
+            <View>
+                <Text style={{ color: "blue", textAlign: 'center', fontWeight: 'bold', fontSize: 20, }}></Text>
+                <Button title="Lista de Contatos   + " onPress={() => navigation.navigate('Cadastro de Contato')}
+                    titleStyle={{ fontSize: 30, fontWeight: 'bold', textAlign: 'center' }}
+                    buttonStyle={{ backgroundColor: 'red', justifyContent: 'center' }} />
+            </View>
 
-                    {
-                        nome: "Patrícia Tavares",
-                        email: "patriciaTavares@hotmail.com",
-                        numero: 81998765332
-                    },
+            <View>
+                {
+                    data.map((l, i) => (
+                        <ListItem key={i} bottomDivider
+                            onPress={() => edicao({
+                                id: l.id,
+                                nome: l.nome,
+                                email: l.email,
+                                telefone: l.telefone
 
-                    {
-                        nome: "Rodrigo Antunes",
-                        email: "patriciaTavares@bol.com",
-                        numero: 81987765525
-                    },
-                ]}
-                renderItem={({ item }) => <Text onPress={() => navigation.navigate('Contato Alterar/Excluir')}
-                    style={styles.item}><br></br>{item.nome}<br></br>{item.email}<br></br>{item.numero}</Text>}
-            />
+                            })}>
+                            <Avatar source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9pwsN7oN02FOgJSVg2fe-R1dMMFRZi9J7Lw&usqp=CAU' }} />
+                            <ListItem.Content>
+                                <ListItem.Title style={styles.titulo}>{l.nome}</ListItem.Title>
+                                <ListItem.Subtitle style={styles.titulo}>{l.email}</ListItem.Subtitle>
+                                <ListItem.Subtitle style={styles.titulo}>{l.telefone}</ListItem.Subtitle>
+                            </ListItem.Content>
+                        </ListItem>
+                    ))
+                }
+            </View>
 
         </View>
     );
-};
-export default lista;
+
+
+}
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: 10,
         alignItems: 'center',
-        justifyContent: 'center'
     },
-    item: {
-        padding: 50,
-        fontSize: 18,
-        height: 5,
+    titulo: {
+        color: 'black',
         fontWeight: 'bold'
-    },
-
-    bordacabecalho: {
-        backgroundColor: 'blue',
-        fontSize: 25,
-        fontWeight: 'bold',
-        color: 'white',
-        fontWeight: 'bold',
-        width: '100%',
-        top: 0,
-        display: 'flex',
-        position: 'absolute'
-    },
+    }
 });

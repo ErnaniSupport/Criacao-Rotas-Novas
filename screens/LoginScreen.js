@@ -9,8 +9,7 @@ const LoginScreen = () => {
             flexDirection: "column"
         }]}>
             <Image source={require('../assets/MarcaSaco.png')} style={styles.image} />
-            <br></br>
-
+            
             <View style={{ flex: 1 }} />
             <Text style={styles.frase}>Mate sua fome com um clique.</Text>
             <br></br>
@@ -36,12 +35,11 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        padding: 20,
-        marginBottom: 80
+        paddingBottom: 100
     },
     image: {
-        width: 250,
-        height: 250,
+        width: 230,
+        height: 230,
         borderRadius: 20,
     },
 
@@ -58,7 +56,6 @@ const styles = StyleSheet.create({
     cadastrarButton: {
         backgroundColor: 'blue',
         padding: 5,
-        marginBottom: 70,
         width: 150,
         alignItems: 'center',
         color: 'white',
@@ -72,7 +69,7 @@ const styles = StyleSheet.create({
     },
 
     input: {
-        width: '95%',
+        width: '90%',
         height: 50,
         borderColor: 'black',
         borderWidth: 2,
