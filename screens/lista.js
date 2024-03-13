@@ -31,15 +31,16 @@ export default function ListaContato() {
     }, []);
 
     return (
+        <ScrollView>
         <View style={styles.container}>
 
             <View>
-                <Text style={{ color: "blue", textAlign: 'center', fontWeight: 'bold', fontSize: 20, }}></Text>
+                
                 <Button title="Lista de Contatos   + " onPress={() => navigation.navigate('Cadastro de Contato')}
                     titleStyle={{ fontSize: 30, fontWeight: 'bold', textAlign: 'center' }}
-                    buttonStyle={{ backgroundColor: 'red', justifyContent: 'center' }} />
+                    buttonStyle={{ backgroundColor: 'blue' }} />
             </View>
-
+            
             <View>
                 {
                     data.map((l, i) => (
@@ -51,7 +52,7 @@ export default function ListaContato() {
                                 telefone: l.telefone
 
                             })}>
-                            <Avatar source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9pwsN7oN02FOgJSVg2fe-R1dMMFRZi9J7Lw&usqp=CAU' }} />
+                            <Avatar size="medium" source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9pwsN7oN02FOgJSVg2fe-R1dMMFRZi9J7Lw&usqp=CAU' }} />
                             <ListItem.Content>
                                 <ListItem.Title style={styles.titulo}>{l.nome}</ListItem.Title>
                                 <ListItem.Subtitle style={styles.titulo}>{l.email}</ListItem.Subtitle>
@@ -61,20 +62,18 @@ export default function ListaContato() {
                     ))
                 }
             </View>
-
         </View>
+        </ScrollView>
     );
-
-
 }
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
+        
     },
     titulo: {
         color: 'black',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        fontSize: 15
     }
 });

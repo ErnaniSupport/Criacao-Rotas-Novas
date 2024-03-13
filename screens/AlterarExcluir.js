@@ -84,9 +84,13 @@ export default function AlterarExcluir() {
 
     return (
         <View style={styles.container}>
-            <Text style={{ color: "red", textAlign: 'center', fontWeight: 'bold', fontSize: 30, }}>Contato</Text>
 
-            <View style={{ marginTop: 50 }}>
+            <Text style={{
+                backgroundColor: 'blue', color: "white", textAlign: 'center',
+                fontWeight: 'bold', fontSize: 30,
+            }}>Contato</Text>
+
+            <View style={{ marginTop: 20 }}>
 
                 <Input
                     label='Nome'
@@ -151,10 +155,10 @@ const styles = StyleSheet.create({
     alterarButton: {
         backgroundColor: 'blue',
         padding: 5,
-        marginTop: 80,
+        marginTop: 50,
         height: 50,
         margin: 'auto',
-        width: "100%",
+        width: "95%",
         justifyContent: 'center',
         alignItems: 'center',
         color: 'white',
@@ -163,13 +167,12 @@ const styles = StyleSheet.create({
     excluirButton: {
         backgroundColor: 'red',
         padding: 5,
-        marginTop: 80,
+        marginTop: 50,
         height: 50,
         margin: 'auto',
-        width: "100%",
+        width: "95%",
         justifyContent: 'center',
         alignItems: 'center',
         color: 'white',
     }
-
 });

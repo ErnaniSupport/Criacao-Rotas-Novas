@@ -35,7 +35,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        paddingBottom: 100
+        paddingBottom: 50,
+        paddingTop: 40
     },
     image: {
         width: 230,
@@ -50,7 +51,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         color: 'white',
         borderRadius: 15,
-        marginBottom: 40
+        marginBottom: 50
     },
 
     cadastrarButton: {
@@ -60,6 +61,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         color: 'white',
         borderRadius: 15,
+        marginBottom: 10
     },
 
     buttonText: {
