@@ -1,13 +1,13 @@
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import React, { useState, useEffect } from 'react';
-import { Input, Button, Text } from 'react-native-elements';
+import { Input, Button, Text, Header, Icon } from 'react-native-elements';
 import { useNavigation, useRoute } from "@react-navigation/native";
 import axios from 'axios';
 
 
 export default function AlterarExcluir() {
 
-    const navegacao = useNavigation();
+    const navigation = useNavigation();
 
     const rotas = useRoute();
     const { data } = rotas.params;
@@ -15,7 +15,6 @@ export default function AlterarExcluir() {
     const [getEmail, setEmail] = useState(data.email);
     const [getTelefone, setTelefone] = useState(data.telefone);
 
-
     async function inserirDados() {
 
         axios.put('http://localhost:3000/user/' + data.id, {
@@ -27,33 +26,9 @@ export default function AlterarExcluir() {
                 setNome('');
                 setEmail('');
                 setTelefone('');
-                showMessage({
-                    message: "Registro Alterado com sucesso",
-                    type: "success",
-                });
-                console.log(response);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    }
-
-    async function inserirDados() {
-
-        axios.put('http://localhost:3000/user/' + data.id, {
-            nome: getNome,
-            email: getEmail,
-            telefone: getTelefone
-        })
-            .then(function (response) {
-                setNome('');
-                setEmail('');
-                setTelefone('');
-                showMessage({
-                    message: "Registro Alterado com sucesso",
-                    type: "success",
-                });
-                console.log(response);
+                {
+                    alert("Registro Alterado com sucesso")
+                }
             })
             .catch(function (error) {
                 console.log(error);
@@ -71,24 +46,36 @@ export default function AlterarExcluir() {
                 setNome('');
                 setEmail('');
                 setTelefone('');
-                showMessage({
-                    message: "Registro Alterado com sucesso",
-                    type: "success",
-                });
-                console.log(response);
+                {
+                    alert("Registro Deletado com sucesso")
+                }
             })
             .catch(function (error) {
                 console.log(error);
             });
+
     }
 
     return (
         <View style={styles.container}>
 
-            <Text style={{
-                backgroundColor: 'blue', color: "white", textAlign: 'center',
-                fontWeight: 'bold', fontSize: 30,
-            }}>Contato</Text>
+            <Header
+                containerStyle={{ width: '100%', backgroundColor: '#1874CD' }}
+                leftComponent={<Icon
+                    name='arrow-circle-left'
+                    type='font-awesome6'
+                    color='#fff'
+                    iconStyle={{ fontSize: 40 }}
+                    onPress={() => navigation.navigate("Lista de Contato")}
+                />
+                }
+                centerComponent={{
+                    text: 'Contato', style: {
+                        color: '#fff', fontSize: 25, fontWeight: 'bold',
+                        justifyContent: 'row'
+                    }
+                }}
+            />
 
             <View style={{ marginTop: 20 }}>
 

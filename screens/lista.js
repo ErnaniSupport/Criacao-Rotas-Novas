@@ -1,9 +1,11 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { StyleSheet, ScrollView, Text, View } from 'react-native';
-import { Button, ListItem, Avatar } from 'react-native-elements';
+import { Button, ListItem, Avatar, Header, Icon } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
+import { app } from "../src/Firebase/FireBase";
+import { getAuth, signOut } from "firebase/auth";
 
 export default function ListaContato() {
 
@@ -28,48 +30,74 @@ export default function ListaContato() {
                 });
         }
         resgatar();
-    }, []);
+    },);
+
+    function deslogar() {
+        const auth = getAuth();
+        signOut(auth).then(() => {
+            navigation.replace('Login')
+            alert('deslogado')
+        }).catch((error) => {
+            error.message;
+        });
+    };
 
     return (
         <ScrollView>
-        <View style={styles.container}>
-
-            <View>
-                
-                <Button title="Lista de Contatos   + " onPress={() => navigation.navigate('Cadastro de Contato')}
-                    titleStyle={{ fontSize: 30, fontWeight: 'bold', textAlign: 'center' }}
-                    buttonStyle={{ backgroundColor: 'blue' }} />
+            <View style={styles.container}>
+                <Header
+                    containerStyle={{ width: '100%', backgroundColor: '#1874CD' }}
+                    leftComponent={<Icon
+                        name='arrow-circle-left'
+                        type='font-awesome6'
+                        color='#fff'
+                        iconStyle={{ fontSize: 40 }}
+                        onPress={() => deslogar()}
+                    />
+                    }
+                    centerComponent={{
+                        text: 'Lista de Contatos', style: {
+                            color: '#fff', fontSize: 25, fontWeight: 'bold',
+                            justifyContent: 'row'
+                        }
+                    }}
+                    rightComponent={<Icon
+                        name='add'
+                        type='font-awesome6'
+                        color='#fff'
+                        iconStyle={{ fontSize: 40 }}
+                        onPress={() => navigation.navigate('Cadastro de Contato')}
+                    />
+                    }
+                />
+                <View>
+                    {
+                        data.map((l, i) => (
+                            <ListItem key={i} bottomDivider
+                                onPress={() => edicao({
+                                    id: l.id,
+                                    nome: l.nome,
+                                    email: l.email,
+                                    telefone: l.telefone
+                                })}>
+                                <Avatar size="medium" source={{ uri: 'https://cdn-icons-png.flaticon.com/512/3541/3541871.png' }} />
+                                <ListItem.Content>
+                                    <ListItem.Title style={styles.titulo}>{l.nome}</ListItem.Title>
+                                    <ListItem.Subtitle style={styles.titulo}>{l.email}</ListItem.Subtitle>
+                                    <ListItem.Subtitle style={styles.titulo}>{l.telefone}</ListItem.Subtitle>
+                                </ListItem.Content>
+                            </ListItem>
+                        ))
+                    }
+                </View>
             </View>
-            
-            <View>
-                {
-                    data.map((l, i) => (
-                        <ListItem key={i} bottomDivider
-                            onPress={() => edicao({
-                                id: l.id,
-                                nome: l.nome,
-                                email: l.email,
-                                telefone: l.telefone
-
-                            })}>
-                            <Avatar size="medium" source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9pwsN7oN02FOgJSVg2fe-R1dMMFRZi9J7Lw&usqp=CAU' }} />
-                            <ListItem.Content>
-                                <ListItem.Title style={styles.titulo}>{l.nome}</ListItem.Title>
-                                <ListItem.Subtitle style={styles.titulo}>{l.email}</ListItem.Subtitle>
-                                <ListItem.Subtitle style={styles.titulo}>{l.telefone}</ListItem.Subtitle>
-                            </ListItem.Content>
-                        </ListItem>
-                    ))
-                }
-            </View>
-        </View>
         </ScrollView>
     );
 }
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        
+
     },
     titulo: {
         color: 'black',

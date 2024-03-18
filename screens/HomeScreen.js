@@ -15,7 +15,7 @@ export default function HomeScreen() {
         <Text style={styles.buttonText}>Entrar</Text>
       </TouchableOpacity>
 
-      
+
     </View>
   );
 }
